@@ -3,7 +3,7 @@ pragma circom 2.1.6;
 include "circomlib/circuits/bitify.circom";
 include "circomlib/circuits/comparators.circom";
 include "circomlib/circuits/poseidon.circom";
-include "@zk-email/circuits/email-verifier.circom";
+include "@zk-email/circuits/email-verifier.circom"; /// @dev - The "EmailVerifier" template is implemented here.
 include "@zk-email/circuits/utils/regex.circom";
 include "@zk-email/circuits/utils/functions.circom";
 include "./utils/constants.circom";
@@ -71,7 +71,7 @@ template EoaAuth(n, k, max_header_bytes, max_body_bytes, max_command_bytes, reci
     signal output is_code_exist;
     
     // Verify Email Signature
-    component email_verifier = EmailVerifier(max_header_bytes, max_body_bytes, n, k, 0, 0, 0, is_qp_encoded);
+    component email_verifier = EmailVerifier(max_header_bytes, max_body_bytes, n, k, 0, 0, 0, is_qp_encoded); /// @dev - include => component (NOTE: The "EmailVerifier" template is implemented in the "@zk-email/circuits/email-verifier.circom")
     email_verifier.emailHeader <== padded_header;
     email_verifier.emailHeaderLength <== padded_header_len;
     email_verifier.pubkey <== public_key;
