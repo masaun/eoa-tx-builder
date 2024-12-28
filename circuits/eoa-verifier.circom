@@ -39,4 +39,4 @@ include "./helpers/remove-soft-line-breaks.circom";
 /// @output maskedHeader[maxHeadersLength] Masked email header.
 /// @output maskedBody[maxBodyLength] Masked email body.
 
-template EmailVerifier(maxHeadersLength, maxBodyLength, n, k, ignoreBodyHashCheck, enableHeaderMasking, enableBodyMasking, removeSoftLineBreaks) {
+template EoaVerifier(maxHeadersLength, maxBodyLength, n, k, ignoreBodyHashCheck, enableHeaderMasking, enableBodyMasking, removeSoftLineBreaks) {
