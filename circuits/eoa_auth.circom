@@ -2,7 +2,7 @@ pragma circom 2.1.6;
 
 include "./eoa_auth_template.circom";
 
-component main = EoaAuth(121, 17, 1024, 1024, 605, 0, 1);
+component main = EoaAuth(121, 17, 1024, 1024, 605, 0, 1); /// @dev - Main component to be executed.
 
 
 // Verify email from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
