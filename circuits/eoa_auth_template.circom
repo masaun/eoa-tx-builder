@@ -47,17 +47,17 @@ template EoaAuth(n, k, max_header_bytes, max_body_bytes, max_command_bytes, reci
     
     // Verify Email (-> EOA) Signature
     component email_verifier = EoaVerifier(max_header_bytes, max_body_bytes, n, k, 0, 0, 0, is_qp_encoded); /// @dev - include => component (NOTE: The "EmailVerifier" template is implemented in the "@zk-email/circuits/email-verifier.circom")
-    email_verifier.emailHeader <== padded_header;
-    email_verifier.emailHeaderLength <== padded_header_len;
-    email_verifier.pubkey <== public_key;
-    email_verifier.signature <== signature;
-    email_verifier.bodyHashIndex <== body_hash_idx;
-    email_verifier.precomputedSHA <== precomputed_sha;
-    email_verifier.emailBody <== padded_body;
-    email_verifier.emailBodyLength <== padded_body_len;
+    eoa_verifier.emailHeader <== padded_header;
+    eoa_verifier.emailHeaderLength <== padded_header_len;
+    eoa_verifier.pubkey <== public_key;
+    eoa_verifier.signature <== signature;
+    eoa_verifier.bodyHashIndex <== body_hash_idx;
+    eoa_verifier.precomputedSHA <== precomputed_sha;
+    eoa_verifier.emailBody <== padded_body;
+    eoa_verifier.emailBodyLength <== padded_body_len;
     if (is_qp_encoded == 1) {
-        email_verifier.decodedEmailBodyIn <== padded_cleaned_body;
+        eoa_verifier.decodedEmailBodyIn <== padded_cleaned_body;
     }
-    public_key_hash <== email_verifier.pubkeyHash;
+    public_key_hash <== eoa_verifier.pubkeyHash;
     
 }
