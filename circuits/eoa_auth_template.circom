@@ -14,30 +14,18 @@ include "@zk-email/circuits/email-verifier.circom"; /// @dev - The "EmailVerifie
 // * max_command_bytes - max number of bytes in the command
 // * recipient_enabled - whether the email address commitment of the recipient = email address in the subject is exposed
 // * is_qp_encoded - whether the email body is qp encoded
-template EoaAuth(n, k, max_header_bytes, max_body_bytes, max_command_bytes, recipient_enabled, is_qp_encoded) {
-    var email_max_bytes = email_max_bytes_const();
+template EoaAuth(k) {
+    //var email_max_bytes = email_max_bytes_const();
 
     signal input public_key[k]; // RSA public key (modulus), k parts of n bits each.
     signal input signature[k]; // RSA signature, k parts of n bits each.
 
-    signal output domain_name[domain_field_len];
     signal output public_key_hash;
-    signal output email_nullifier;
     signal output timestamp;
     
-    // Verify Email (-> EOA) Signature
-    component email_verifier = EoaVerifier(max_header_bytes, max_body_bytes, n, k, 0, 0, 0, is_qp_encoded); /// @dev - include => component (NOTE: The "EmailVerifier" template is implemented in the "@zk-email/circuits/email-verifier.circom")
-    eoa_verifier.emailHeader <== padded_header;
-    eoa_verifier.emailHeaderLength <== padded_header_len;
+    // Verify EOA Signature
+    component eoa_verifier = EoaVerifier(max_header_bytes, max_body_bytes, n, k, 0, 0, 0, is_qp_encoded); /// @dev - include => component (NOTE: The "EmailVerifier" template is implemented in the "@zk-email/circuits/email-verifier.circom")
     eoa_verifier.pubkey <== public_key;
     eoa_verifier.signature <== signature;
-    eoa_verifier.bodyHashIndex <== body_hash_idx;
-    eoa_verifier.precomputedSHA <== precomputed_sha;
-    eoa_verifier.emailBody <== padded_body;
-    eoa_verifier.emailBodyLength <== padded_body_len;
-    if (is_qp_encoded == 1) {
-        eoa_verifier.decodedEmailBodyIn <== padded_cleaned_body;
-    }
-    public_key_hash <== eoa_verifier.pubkeyHash;
-    
+    public_key_hash <== eoa_verifier.pubkeyHash;   
 }
