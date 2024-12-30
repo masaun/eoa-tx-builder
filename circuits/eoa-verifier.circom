@@ -16,4 +16,6 @@ include "./helpers/remove-soft-line-breaks.circom";
 /// @notice Circuit to verify an EOA signature as per DKIM standard.
 /// @notice Verifies the signature is valid for the given header and pubkey, and the hash of the body matches the hash in the header.
 /// @notice This cicuit only verifies signature as per `rsa-sha256` algorithm.
-template EoaVerifier(maxHeadersLength, maxBodyLength, n, k, ignoreBodyHashCheck, enableHeaderMasking, enableBodyMasking, removeSoftLineBreaks) {
+template EoaVerifier(k) {
+
+}
