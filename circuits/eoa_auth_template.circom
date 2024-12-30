@@ -4,25 +4,7 @@ include "circomlib/circuits/bitify.circom";
 include "circomlib/circuits/comparators.circom";
 include "circomlib/circuits/poseidon.circom";
 include "@zk-email/circuits/email-verifier.circom"; /// @dev - The "EmailVerifier" template is implemented here.
-include "@zk-email/circuits/utils/regex.circom";
-include "@zk-email/circuits/utils/functions.circom";
-include "./utils/constants.circom";
-include "./utils/account_salt.circom";
-include "./utils/hash_sign.circom";
-include "./utils/email_nullifier.circom";
-include "./utils/bytes2ints.circom";
-include "./utils/digit2int.circom";
-include "./utils/hex2int.circom";
-include "./utils/email_addr_commit.circom";
-include "./regexes/invitation_code_with_prefix_regex.circom";
-include "./regexes/invitation_code_regex.circom";
-include "./regexes/command_regex.circom";
-include "./regexes/forced_subject_regex.circom";
-include "@zk-email/zk-regex-circom/circuits/common/from_addr_regex.circom";
-include "@zk-email/zk-regex-circom/circuits/common/email_addr_regex.circom";
-include "@zk-email/zk-regex-circom/circuits/common/email_domain_regex.circom";
-include "@zk-email/zk-regex-circom/circuits/common/subject_all_regex.circom";
-include "@zk-email/zk-regex-circom/circuits/common/timestamp_regex.circom";
+
 
 // Verify email from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
 // * n - the number of bits in each chunk of the RSA public key (modulust)
@@ -35,8 +17,6 @@ include "@zk-email/zk-regex-circom/circuits/common/timestamp_regex.circom";
 template EoaAuth(n, k, max_header_bytes, max_body_bytes, max_command_bytes, recipient_enabled, is_qp_encoded) {
     var email_max_bytes = email_max_bytes_const();
 
-    signal input padded_header[max_header_bytes]; // email data (only header part)
-    signal input padded_header_len; // length of in email data including the padding
     signal input public_key[k]; // RSA public key (modulus), k parts of n bits each.
     signal input signature[k]; // RSA signature, k parts of n bits each.
 
