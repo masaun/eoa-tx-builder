@@ -11,8 +11,7 @@ template EoaAuth() {
     signal input guardianStorageKey;    /// @dev - Privately stored via the input.json 
     signal input guardianStorageValue;  /// @dev - Privately stored via the input.json 
 
-    signal output public_key_hash;
-    signal output b;
+    signal output guardianPublicKey;    /// @dev - Public
     
     // Verify EOA Signature
     // component eoa_verifier = EoaVerifier(k); /// @dev - include => component (NOTE: The "EoalVerifier" template is implemented in the "@zk-email/circuits/eoa-verifier.circom")
@@ -20,5 +19,5 @@ template EoaAuth() {
     // eoa_verifier.signature <== signature;
     // public_key_hash <== eoa_verifier.pubkeyHash;
 
-    guardianStorageKey === 
+    guardianPublicKey <== guardianStorageKey; /// @dev - Constraint
 }
