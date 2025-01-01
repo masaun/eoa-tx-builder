@@ -7,17 +7,18 @@ include "./eoa-verifier.circom"; /// @dev - The "EoaVerifier" template is implem
 
 
 // Verify an EOA from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
-template EoaAuth(_guardianStorageKey, _guardianStorageValue) {
-    //var email_max_bytes = email_max_bytes_const();
+template EoaAuth() {
+    signal input guardianStorageKey;    /// @dev - Privately stored via the input.json 
+    signal input guardianStorageValue;  /// @dev - Privately stored via the input.json 
 
-    signal input guardianStorageKey;
-    signal input guardianStorageValue;
-
-    signal output 
+    signal output public_key_hash;
+    signal output b;
     
     // Verify EOA Signature
-    component eoa_verifier = EoaVerifier(k); /// @dev - include => component (NOTE: The "EmailVerifier" template is implemented in the "@zk-email/circuits/email-verifier.circom")
-    eoa_verifier.pubkey <== public_key;
-    eoa_verifier.signature <== signature;
-    public_key_hash <== eoa_verifier.pubkeyHash;   
+    // component eoa_verifier = EoaVerifier(k); /// @dev - include => component (NOTE: The "EoalVerifier" template is implemented in the "@zk-email/circuits/eoa-verifier.circom")
+    // eoa_verifier.pubkey <== public_key;
+    // eoa_verifier.signature <== signature;
+    // public_key_hash <== eoa_verifier.pubkeyHash;
+
+    guardianStorageKey === 
 }
