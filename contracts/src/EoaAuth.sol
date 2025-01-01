@@ -236,7 +236,7 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
             "invalid EOA proof"
         );
 
-        usedNullifiers[eoaAuthMsg.proof.eoaNullifier] = true;
+        usedNullifiers[eoaAuthMsg.proof.eoaNullifier] = true;  // @audit info - State Update (= usedNullifiers)
         if (timestampCheckEnabled && eoaAuthMsg.proof.timestamp != 0) {
             lastTimestamp = eoaAuthMsg.proof.timestamp;
         }

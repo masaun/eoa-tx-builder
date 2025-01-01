@@ -6,17 +6,14 @@ include "circomlib/circuits/poseidon.circom";
 include "./eoa-verifier.circom"; /// @dev - The "EoaVerifier" template is implemented here.
 
 
-// Verify email from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
-// * n - the number of bits in each chunk of the RSA public key (modulust)
-// * k - the number of chunks in the RSA public key (n * k > 2048)
-template EoaAuth(n, k) {
+// Verify an EOA from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
+template EoaAuth(_guardianStorageKey, _guardianStorageValue) {
     //var email_max_bytes = email_max_bytes_const();
 
-    signal input public_key[k]; // RSA public key (modulus), k parts of n bits each.
-    signal input signature[k]; // RSA signature, k parts of n bits each.
+    signal input guardianStorageKey;
+    signal input guardianStorageValue;
 
-    signal output public_key_hash;
-    signal output timestamp;
+    signal output 
     
     // Verify EOA Signature
     component eoa_verifier = EoaVerifier(k); /// @dev - include => component (NOTE: The "EmailVerifier" template is implemented in the "@zk-email/circuits/email-verifier.circom")
