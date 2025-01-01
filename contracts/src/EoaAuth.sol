@@ -198,8 +198,6 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
     /// @dev This function can only be called by the controller contract.
     /// @param eoaAuthMsg The EOA auth message containing all necessary information for authentication and authorization.
     function authEoa(EoaAuthMsg memory eoaAuthMsg) public onlyController { /// @audit info - The "EoaAuthMsg" struct would include the "EoaProof proof" property, meaning that the proof (EmailProof) will be registered via this authEmail() function.
-    require(template.length > 0, "template id not exists");
-        string[] memory template = commandTemplates[emailAuthMsg.templateId];    
         require(
             dkim.isDKIMPublicKeyHashValid(
                 eoaAuthMsg.proof.domainName,
@@ -214,21 +212,6 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
         require(
             accountSalt == emailAuthMsg.proof.accountSalt,
             "invalid account salt"
-        );
-        require(
-            timestampCheckEnabled == false ||
-                eoaAuthMsg.proof.timestamp == 0 ||
-                eoaAuthMsg.proof.timestamp > lastTimestamp,
-            "invalid timestamp"
-        );
-        require(
-            bytes(eoaAuthMsg.proof.maskedCommand).length <=
-                verifier.commandBytes(), /// @audit info - Verifier# commandBytes()
-            "invalid masked command length"
-        );
-        require(
-            eoaAuthMsg.skippedCommandPrefix < verifier.commandBytes(),
-            "invalid size of the skipped command prefix"
         );
 
         require(

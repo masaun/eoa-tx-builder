@@ -2,7 +2,7 @@ pragma circom 2.1.6;
 
 include "./eoa_auth_template.circom";
 
-component main = EoaAuth(121, 17); /// @dev - Main component to be executed.
+component main {public [guardianStorageKey]} = EoaAuth(); /// @dev - Main component to be executed. ("guardianStorageKey" can be "public")
 
 
 // Verify email from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
