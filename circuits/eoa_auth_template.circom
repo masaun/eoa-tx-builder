@@ -1,8 +1,11 @@
 pragma circom 2.1.6;
 
-include "circomlib/circuits/bitify.circom";
-include "circomlib/circuits/comparators.circom";
-include "circomlib/circuits/poseidon.circom";
+include "./lib/circomlib/circuits/bitify.circom";
+include "./lib/circomlib/circuits/comparators.circom";
+include "./lib/circomlib/circuits/poseidon.circom";
+// include "circomlib/circuits/bitify.circom";
+// include "circomlib/circuits/comparators.circom";
+// include "circomlib/circuits/poseidon.circom";
 include "./eoa-verifier.circom"; /// @dev - The "EoaVerifier" template is implemented here.
 
 
