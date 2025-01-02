@@ -9,8 +9,9 @@ template EoaAuth() {
     signal input guardian;    /// @dev - Privately stored via the input.json 
     signal input weight;      /// @dev - Privately stored via the input.json 
     signal input signature;   /// @dev - Privately stored via the input.json 
+    signal input timestamp;   /// @dev - Privately stored via the input.json 
 
-    signal output guardianPublicKey;    /// @dev - Public
+    signal output accountPublicKey;    /// @dev - Public
 
-    guardianPublicKey <== guardianStorageKey; /// @dev - Constraint
+    accountPublicKey <== account;     /// @dev - Constraint
 }
