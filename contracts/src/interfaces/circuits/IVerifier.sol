@@ -1,21 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-struct EmailProof {
-    string domainName; // Domain name of the sender's email
-    bytes32 publicKeyHash; // Hash of the DKIM public key used in email/proof
+struct EoaProof {
+    bytes32 publicKeyHash; // Hash of the DKIM public key used in EOA/proof
     uint timestamp; // Timestamp of the email
-    string maskedCommand; // Masked command of the email
-    bytes32 emailNullifier; // Nullifier of the email to prevent its reuse.
-    bytes32 accountSalt; // Create2 salt of the account
-    bool isCodeExist; // Check if the account code is exist
-    bytes proof; // ZK Proof of Email
+    bytes32 emailNullifier; // @dev - Nullifier of the EOA to prevent its reuse.
+    bytes proof; // @dev - ZK Proof of EOA, which is specified as a "Guardian"
 }
 
 interface IVerifier {
     function commandBytes() external view returns (uint256);
 
-    function verifyEmailProof(
-        EmailProof memory proof
+    function verifyEoaProof(
+        EoaProof memory proof
     ) external view returns (bool);
 }
