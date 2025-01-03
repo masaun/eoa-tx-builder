@@ -19,3 +19,6 @@ node_modules/
 # ZK circuit
 eoa_auth_cpp/
 eoa_auth_js/
+
+eoa_auth.r1cs
+eoa_auth.sym
