@@ -3,15 +3,13 @@ pragma circom 2.1.6;
 include "./eoa-verifier.circom"; /// @dev - The "EoaVerifier" template is implemented here.
 
 
-// Verify an EOA from user (sender) and extract a command in the email body, timestmap, recipient email (commitment), etc.
+// Verify an EOA from user (sender)
 template EoaAuth() {
-    signal input account;     /// @dev - Privately stored via the input.json 
-    signal input guardian;    /// @dev - Privately stored via the input.json 
-    signal input weight;      /// @dev - Privately stored via the input.json 
-    signal input signature;   /// @dev - Privately stored via the input.json 
-    signal input timestamp;   /// @dev - Privately stored via the input.json 
+    signal input account;     /// @dev - Privately stored via the input.json (to may be generated on FE)
+    signal input guardian;    /// @dev - Privately stored via the input.json (to may be generated on FE)
 
-    signal output accountPublicKey;    /// @dev - Public
+    signal output accountPublicKey;    /// @dev - a "Public" signal
 
     accountPublicKey <== account;     /// @dev - Constraint
+                                      /// @notice - In this case, the prameters in the SC to be generated will be a "proof" + "accountPublicKey" (= public signal)
 }
