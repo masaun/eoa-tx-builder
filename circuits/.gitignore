@@ -15,3 +15,7 @@ docs/
 
 # Node modules
 node_modules/
+
+# ZK circuit
+eoa_auth_cpp/
+eoa_auth_js/
