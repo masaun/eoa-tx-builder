@@ -11,13 +11,7 @@ import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/Own
 
 /// @notice Struct to hold the email authentication/authorization message.
 struct EoaAuthMsg {
-    /// @notice The ID of the command template that the command in the email body should satisfy.
-    uint templateId;
-    /// @notice The parameters in the command of the email body, which should be taken according to the specified command template.
-    bytes[] commandParams;
-    /// @notice The number of skipped bytes in the command.
-    uint skippedCommandPrefix;
-    /// @notice The email proof containing the zk proof and other necessary information for the email verification by the verifier contract.
+    /// @notice The EOA proof containing the zk proof and other necessary information for the EOA verification by the Verifier contract.
     EoaProof proof; /// @audit info - This EoaProof is imported from the Verifier.sol
 }
 
@@ -135,65 +129,6 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
         emit VerifierUpdated(_verifierAddr);
     }
 
-    /// @notice Retrieves a command template by its ID.
-    /// @param _templateId The ID of the command template to be retrieved.
-    /// @return string[] The command template as an array of strings.
-    function getCommandTemplate(
-        uint _templateId
-    ) public view returns (string[] memory) {
-        require(
-            commandTemplates[_templateId].length > 0,
-            "template id not exists"
-        );
-        return commandTemplates[_templateId];
-    }
-
-    /// @notice Inserts a new command template.
-    /// @dev This function can only be called by the controller of the contract.
-    /// @param _templateId The ID for the new command template.
-    /// @param _commandTemplate The command template as an array of strings.
-    function insertCommandTemplate(
-        uint _templateId,
-        string[] memory _commandTemplate
-    ) public onlyController {
-        require(_commandTemplate.length > 0, "command template is empty");
-        require(
-            commandTemplates[_templateId].length == 0,
-            "template id already exists"
-        );
-        commandTemplates[_templateId] = _commandTemplate;
-        emit CommandTemplateInserted(_templateId);
-    }
-
-    /// @notice Updates an existing command template by its ID.
-    /// @dev This function can only be called by the controller contract.
-    /// @param _templateId The ID of the template to update.
-    /// @param _commandTemplate The new command template as an array of strings.
-    function updateCommandTemplate(
-        uint _templateId,
-        string[] memory _commandTemplate
-    ) public onlyController {
-        require(_commandTemplate.length > 0, "command template is empty");
-        require(
-            commandTemplates[_templateId].length > 0,
-            "template id not exists"
-        );
-        commandTemplates[_templateId] = _commandTemplate;
-        emit CommandTemplateUpdated(_templateId);
-    }
-
-    /// @notice Deletes an existing command template by its ID.
-    /// @dev This function can only be called by the controller of the contract.
-    /// @param _templateId The ID of the command template to be deleted.
-    function deleteCommandTemplate(uint _templateId) public onlyController {
-        require(
-            commandTemplates[_templateId].length > 0,
-            "template id not exists"
-        );
-        delete commandTemplates[_templateId];
-        emit CommandTemplateDeleted(_templateId);
-    }
-
     /// @notice Authenticate the EOA sender and authorize the message in the email command based on the provided email auth message.
     /// @dev This function can only be called by the controller contract.
     /// @param eoaAuthMsg The EOA auth message containing all necessary information for authentication and authorization.
@@ -245,22 +180,4 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
         address newImplementation
     ) internal override onlyOwner {}
 
-    function removePrefix(
-        string memory str,
-        uint numBytes
-    ) private pure returns (string memory) {
-        require(
-            numBytes <= bytes(str).length,
-            "Invalid size of the removed bytes"
-        );
-
-        bytes memory strBytes = bytes(str);
-        bytes memory result = new bytes(strBytes.length - numBytes);
-
-        for (uint i = numBytes; i < strBytes.length; i++) {
-            result[i - numBytes] = strBytes[i];
-        }
-
-        return string(result);
-    }
 }
