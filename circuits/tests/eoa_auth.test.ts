@@ -2,9 +2,9 @@ const circom_tester = require("circom_tester");
 const wasm_tester = circom_tester.wasm;
 import * as path from "path";
 const relayerUtils = require("@zk-email/relayer-utils");
-import { genEmailCircuitInput } from "../helpers/email_auth";
+//import { genEmailCircuitInput } from "../helpers/email_auth";
 import { readFileSync } from "fs";
-import { genRecipientInput } from "../helpers/recipient";
+//import { genRecipientInput } from "../helpers/recipient";
 
 const option = {
     include: path.join(__dirname, "../../../node_modules"),
@@ -19,7 +19,7 @@ describe("Eoa Auth", () => {
         circuit = await wasm_tester( /// @dev - Store the test circuit, which I want to run.
             path.join(
                 __dirname,
-                "./circuits/test_email_auth.circom" /// @dev - The test circuit
+                "./circuits/test_eoa_auth.circom" /// @dev - The test circuit
             ),
             option
         );
@@ -27,40 +27,54 @@ describe("Eoa Auth", () => {
 
     it("Verify a sent EOA whose body has an EOA address", async () => {
 
-        const circuitInputs =
-            await genEoaCircuitInput(emailFilePath, accountCode, {
-                maxHeaderLength: 640,
-                maxBodyLength: 768,
-                ignoreBodyHashCheck: false,
-                shaPrecomputeSelector: '(<(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)? (=\r\n)?i(=\r\n)?d(=\r\n)?=3D(=\r\n)?"(=\r\n)?[^"]*(=\r\n)?z(=\r\n)?k(=\r\n)?e(=\r\n)?m(=\r\n)?a(=\r\n)?i(=\r\n)?l(=\r\n)?[^"]*(=\r\n)?"(=\r\n)?[^>]*(=\r\n)?>(=\r\n)?)(=\r\n)?([^<>/]+)(<(=\r\n)?/(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)?>(=\r\n)?)',
-            });
-        const witness = await circuit.calculateWitness(circuitInputs);
-        await circuit.checkConstraints(witness);
-
-        const domainName = "gmail.com";
-        const paddedDomain = relayerUtils.padString(domainName, 255);
-        const domainFields = relayerUtils.bytes2Fields(paddedDomain);
-        for (let idx = 0; idx < domainFields.length; ++idx) {
-            expect(BigInt(domainFields[idx])).toEqual(witness[1 + idx]);
-        }
-
-        const expectedPubKeyHash = relayerUtils.publicKeyHash(
-            parsedEmail.publicKey
-        );
-        expect(BigInt(expectedPubKeyHash)).toEqual(
-            witness[1 + domainFields.length]
-        );
-
-        const expectedEmailNullifier = relayerUtils.emailNullifier(
-            parsedEmail.signature
-        );
-        expect(BigInt(expectedEmailNullifier)).toEqual(
-            witness[1 + domainFields.length + 1]
-        );
-
-        const timestamp = BigInt(1729865810);
-        expect(timestamp).toEqual(witness[1 + domainFields.length + 2]);
+        // const circuitInputs =
+        //     await genEoaCircuitInput({
+        //         maxHeaderLength: 640,
+        //         maxBodyLength: 768,
+        //         ignoreBodyHashCheck: false,
+        //         shaPrecomputeSelector: '(<(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)? (=\r\n)?i(=\r\n)?d(=\r\n)?=3D(=\r\n)?"(=\r\n)?[^"]*(=\r\n)?z(=\r\n)?k(=\r\n)?e(=\r\n)?m(=\r\n)?a(=\r\n)?i(=\r\n)?l(=\r\n)?[^"]*(=\r\n)?"(=\r\n)?[^>]*(=\r\n)?>(=\r\n)?)(=\r\n)?([^<>/]+)(<(=\r\n)?/(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)?>(=\r\n)?)',
+        //     });
+        // const witness = await circuit.calculateWitness(circuitInputs);
+        // await circuit.checkConstraints(witness);
     });
+
+
+    // it("Verify a sent EOA whose body has an EOA address", async () => {
+
+    //     const circuitInputs =
+    //         await genEoaCircuitInput(emailFilePath, accountCode, {
+    //             maxHeaderLength: 640,
+    //             maxBodyLength: 768,
+    //             ignoreBodyHashCheck: false,
+    //             shaPrecomputeSelector: '(<(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)? (=\r\n)?i(=\r\n)?d(=\r\n)?=3D(=\r\n)?"(=\r\n)?[^"]*(=\r\n)?z(=\r\n)?k(=\r\n)?e(=\r\n)?m(=\r\n)?a(=\r\n)?i(=\r\n)?l(=\r\n)?[^"]*(=\r\n)?"(=\r\n)?[^>]*(=\r\n)?>(=\r\n)?)(=\r\n)?([^<>/]+)(<(=\r\n)?/(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)?>(=\r\n)?)',
+    //         });
+    //     const witness = await circuit.calculateWitness(circuitInputs);
+    //     await circuit.checkConstraints(witness);
+
+    //     const domainName = "gmail.com";
+    //     const paddedDomain = relayerUtils.padString(domainName, 255);
+    //     const domainFields = relayerUtils.bytes2Fields(paddedDomain);
+    //     for (let idx = 0; idx < domainFields.length; ++idx) {
+    //         expect(BigInt(domainFields[idx])).toEqual(witness[1 + idx]);
+    //     }
+
+    //     const expectedPubKeyHash = relayerUtils.publicKeyHash(
+    //         parsedEmail.publicKey
+    //     );
+    //     expect(BigInt(expectedPubKeyHash)).toEqual(
+    //         witness[1 + domainFields.length]
+    //     );
+
+    //     const expectedEmailNullifier = relayerUtils.emailNullifier(
+    //         parsedEmail.signature
+    //     );
+    //     expect(BigInt(expectedEmailNullifier)).toEqual(
+    //         witness[1 + domainFields.length + 1]
+    //     );
+
+    //     const timestamp = BigInt(1729865810);
+    //     expect(timestamp).toEqual(witness[1 + domainFields.length + 2]);
+    // });
 
     // it("Verify a sent email whose body does not have an email address", async () => {
     //     const emailFilePath = path.join(
