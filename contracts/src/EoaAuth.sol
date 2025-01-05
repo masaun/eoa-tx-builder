@@ -37,11 +37,9 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
     bool public timestampCheckEnabled;
 
     event DKIMRegistryUpdated(address indexed dkimRegistry);
-    event VerifierUpdated(address indexed verifier);
+    event GrothVerifierUpdated(address indexed verifier);
     event EoaAuthed(
-        bytes32 indexed eoaNullifier,
-        bytes32 indexed accountSalt
-    );
+        bytes32 indexed eoaNullifier    );
     event TimestampCheckEnabled(bool enabled);
 
     modifier onlyController() {
@@ -175,8 +173,7 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
         }
         emit EoaAuthed(
             eoaAuthMsg.proof.eoaNullifier,
-            eoaAuthMsg.proof.accountSalt
-        );
+      );
     }
 
     /// @notice Enables or disables the timestamp check.
