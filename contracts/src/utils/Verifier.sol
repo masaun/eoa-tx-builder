@@ -33,7 +33,44 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @audit
     function verifyEoaProof(  /// @audit info - This function is called in the EoaAuth# verifyEmailProof() to validate ~.
         EoaProof memory proof
     ) public view returns (bool) {
-        return groth16Verifier.verifyProof(proof); /// @audit info - Groth16Verifier# verifyProof()
+        (
+            uint256[2] memory pA,
+            uint256[2][2] memory pB,
+            uint256[2] memory pC
+        ) = abi.decode(proof.proof, (uint256[2], uint256[2][2], uint256[2]));
+        require(pA[0] < q && pA[1] < q, "invalid format of pA");
+        require(
+            pB[0][0] < q && pB[0][1] < q && pB[1][0] < q && pB[1][1] < q,
+            "invalid format of pB"
+        );
+        require(pC[0] < q && pC[1] < q, "invalid format of pC");
+
+        uint256[DOMAIN_FIELDS] memory pubSignals;
+        //uint256[DOMAIN_FIELDS + COMMAND_FIELDS + 5] memory pubSignals;
+
+        // uint256[] memory stringFields;
+        // stringFields = _packBytes2Fields(bytes(proof.domainName), DOMAIN_BYTES);
+        // for (uint256 i = 0; i < DOMAIN_FIELDS; i++) {
+        //     pubSignals[i] = stringFields[i];
+        // }
+        pubSignals[DOMAIN_FIELDS] = uint256(proof.publicKeyHash);
+        pubSignals[DOMAIN_FIELDS + 1] = uint256(proof.eoaNullifier);
+        pubSignals[DOMAIN_FIELDS + 2] = uint256(proof.timestamp);
+        // stringFields = _packBytes2Fields(
+        //     bytes(proof.maskedCommand),
+        //     COMMAND_BYTES
+        // );
+        // for (uint256 i = 0; i < COMMAND_FIELDS; i++) {
+        //     pubSignals[DOMAIN_FIELDS + 3 + i] = stringFields[i];
+        // }
+        // pubSignals[DOMAIN_FIELDS + 3 + COMMAND_FIELDS] = uint256(
+        //     proof.accountSalt
+        // );
+        // pubSignals[DOMAIN_FIELDS + 3 + COMMAND_FIELDS + 1] = proof.isCodeExist
+        //     ? 1
+        //     : 0;
+
+        return groth16Verifier.verifyProof(pA, pB, pC, pubSignals); /// @audit info - Groth16Verifier# verifyProof()
     }
 
     function updateGroth16Verifier(address _groth16Verifier) public onlyOwner {
