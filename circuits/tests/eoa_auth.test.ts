@@ -2,7 +2,7 @@ const circom_tester = require("circom_tester");
 const wasm_tester = circom_tester.wasm;
 import * as path from "path";
 const relayerUtils = require("@zk-email/relayer-utils");
-//import { genEmailCircuitInput } from "../helpers/email_auth";
+import { genEoaCircuitInput } from "../helpers/eoa_auth";
 import { readFileSync } from "fs";
 //import { genRecipientInput } from "../helpers/recipient";
 
@@ -26,16 +26,13 @@ describe("Eoa Auth", () => {
     });
 
     it("Verify a sent EOA whose body has an EOA address", async () => {
-
+        let account;
+        let guardian;
+        const circuitInputs = { JSON.parse(account), JSON.parse(guardian) } 
         // const circuitInputs =
-        //     await genEoaCircuitInput({
-        //         maxHeaderLength: 640,
-        //         maxBodyLength: 768,
-        //         ignoreBodyHashCheck: false,
-        //         shaPrecomputeSelector: '(<(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)? (=\r\n)?i(=\r\n)?d(=\r\n)?=3D(=\r\n)?"(=\r\n)?[^"]*(=\r\n)?z(=\r\n)?k(=\r\n)?e(=\r\n)?m(=\r\n)?a(=\r\n)?i(=\r\n)?l(=\r\n)?[^"]*(=\r\n)?"(=\r\n)?[^>]*(=\r\n)?>(=\r\n)?)(=\r\n)?([^<>/]+)(<(=\r\n)?/(=\r\n)?d(=\r\n)?i(=\r\n)?v(=\r\n)?>(=\r\n)?)',
-        //     });
-        // const witness = await circuit.calculateWitness(circuitInputs);
-        // await circuit.checkConstraints(witness);
+        //     await genEoaCircuitInput({});
+        const witness = await circuit.calculateWitness(circuitInputs);
+        await circuit.checkConstraints(witness);
     });
 
 
