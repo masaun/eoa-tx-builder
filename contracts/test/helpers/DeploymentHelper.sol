@@ -7,7 +7,7 @@ import "forge-std/console.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {EoaAuth, EoaAuthMsg} from "../../src/EoaAuth.sol";
 import {Verifier, EoaProof} from "../../src/utils/Verifier.sol";
-import {Groth16Verifier} from "../../src/utils/Groth16Verifier.sol";
+import {Groth16Verifier} from "../../src/circuits/Groth16Verifier.sol";
 import {ECDSAOwnedDKIMRegistry} from "../../src/utils/ECDSAOwnedDKIMRegistry.sol";
 import {UserOverrideableDKIMRegistry} from "@zk-email/contracts/UserOverrideableDKIMRegistry.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";

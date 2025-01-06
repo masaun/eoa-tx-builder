@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import {IGroth16Verifier} from "../interfaces/IGroth16Verifier.sol"; /// @audit info - Groth16Verifier SC
-import {IVerifier, EoaProof} from "../interfaces/IVerifier.sol";
+import {IGroth16Verifier} from "../interfaces/circuits/IGroth16Verifier.sol"; /// @audit info - Groth16Verifier SC
+import {IVerifier, EoaProof} from "../interfaces/circuits/IVerifier.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 

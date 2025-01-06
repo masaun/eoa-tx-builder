@@ -15,20 +15,13 @@ contract StructHelper is DeploymentHelper {
         );
 
         EoaProof memory eoaProof = EoaProof({
-            domainName: "gmail.com",
             publicKeyHash: publicKeyHash,
             timestamp: 1694989812,
-            maskedCommand: "Send 1 ETH to 0x0000000000000000000000000000000000000020",
             eoaNullifier: eoaNullifier,
-            accountSalt: accountSalt,
-            isCodeExist: true,
             proof: mockProof
         });
 
         eoaAuthMsg = EoaAuthMsg({
-            templateId: templateId,
-            commandParams: commandParams,
-            skippedCommandPrefix: 0,
             proof: eoaProof
         });
 
