@@ -56,19 +56,25 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @audit
         pubSignals[DOMAIN_FIELDS] = uint256(proof.publicKeyHash);
         pubSignals[DOMAIN_FIELDS + 1] = uint256(proof.eoaNullifier);
         pubSignals[DOMAIN_FIELDS + 2] = uint256(proof.timestamp);
+    
         // stringFields = _packBytes2Fields(
         //     bytes(proof.maskedCommand),
         //     COMMAND_BYTES
         // );
+    
         // for (uint256 i = 0; i < COMMAND_FIELDS; i++) {
         //     pubSignals[DOMAIN_FIELDS + 3 + i] = stringFields[i];
         // }
+
         // pubSignals[DOMAIN_FIELDS + 3 + COMMAND_FIELDS] = uint256(
         //     proof.accountSalt
         // );
+
         // pubSignals[DOMAIN_FIELDS + 3 + COMMAND_FIELDS + 1] = proof.isCodeExist
         //     ? 1
         //     : 0;
+
+        pubSignals[DOMAIN_FIELDS + 25]; /// @dev - [NOTE]: This is added in order to meet uint256[34] memory
 
         return groth16Verifier.verifyProof(pA, pB, pC, pubSignals); /// @audit info - Groth16Verifier# verifyProof()
     }
