@@ -171,9 +171,8 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
         if (timestampCheckEnabled && eoaAuthMsg.proof.timestamp != 0) {
             lastTimestamp = eoaAuthMsg.proof.timestamp;
         }
-        emit EoaAuthed(
-            eoaAuthMsg.proof.eoaNullifier,
-      );
+
+        emit EoaAuthed(eoaAuthMsg.proof.eoaNullifier);
     }
 
     /// @notice Enables or disables the timestamp check.
