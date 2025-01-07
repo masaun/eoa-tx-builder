@@ -14,12 +14,15 @@ import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/Messa
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 contract DeploymentHelper is Test {
+    
     using ECDSA for *;
 
     EoaAuth eoaAuth;
     Verifier verifier;
     ECDSAOwnedDKIMRegistry dkim;
     UserOverrideableDKIMRegistry overrideableDkimImpl;
+
+    uint256[34] public pubSignals;
 
     address deployer = vm.addr(1);
     address receiver = vm.addr(2);

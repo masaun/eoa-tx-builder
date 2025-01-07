@@ -4,6 +4,9 @@ pragma solidity ^0.8.12;
 import "./DeploymentHelper.sol";
 
 contract StructHelper is DeploymentHelper {
+
+    //uint256[34] public pubSignals; <-- Defined in the DeploymentHelper.sol
+
     function buildEoaAuthMsg()
         public
         returns (EoaAuthMsg memory eoaAuthMsg)
@@ -27,7 +30,7 @@ contract StructHelper is DeploymentHelper {
 
         vm.mockCall(
             address(verifier),
-            abi.encodeCall(Verifier.verifyEoaProof, (eoaProof)),
+            abi.encodeCall(Verifier.verifyEoaProof, (eoaProof, pubSignals)),
             abi.encode(true)
         );
     }

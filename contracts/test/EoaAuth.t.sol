@@ -14,7 +14,7 @@ import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/Own
 
 contract EoaAuthTest is StructHelper {
 
-    uint256[34] public pubSignals;
+    //uint256[34] public pubSignals; <-- Defined in the DeploymentHelper.sol
     
     function setUp() public override {
         super.setUp();
