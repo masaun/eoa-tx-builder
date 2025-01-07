@@ -13,6 +13,9 @@ import "./helpers/StructHelper.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract EoaAuthTest is StructHelper {
+
+    uint256[] public pubSignals;
+    
     function setUp() public override {
         super.setUp();
 
@@ -25,6 +28,8 @@ contract EoaAuthTest is StructHelper {
         vm.expectEmit(true, false, false, false);
         emit EoaAuth.DKIMRegistryUpdated(address(dkim));
         eoaAuth.updateDKIMRegistry(address(dkim));
+
+        pubSignals.push("1390849295786071768276380950238675083608645509734"); /// @dev - output signal -> public.json
         vm.stopPrank();
     }
 
@@ -108,7 +113,8 @@ contract EoaAuthTest is StructHelper {
         emit EoaAuth.EoaAuthed(
             eoaAuthMsg.proof.eoaNullifier
         );
-        eoaAuth.authEoa(eoaAuthMsg);
+
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
         vm.stopPrank();
 
         assertEq(

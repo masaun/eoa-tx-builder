@@ -30,8 +30,9 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @dev -
         groth16Verifier = IGroth16Verifier(_groth16Verifier);
     }
 
-    function verifyEoaProof(  /// @audit info - This function is called in the EoaAuth# verifyEmailProof() to validate ~.
-        EoaProof memory proof
+    function verifyEoaProof(  /// @dev - This function is called in the EoaAuth# verifyEoaProof() to validate ~.
+        EoaProof memory proof,
+        uint256[] memory pubSignals
     ) public view returns (bool) {
         (
             uint256[2] memory pA,
@@ -53,9 +54,9 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @dev -
         // for (uint256 i = 0; i < DOMAIN_FIELDS; i++) {
         //     pubSignals[i] = stringFields[i];
         // }
-        pubSignals[DOMAIN_FIELDS] = uint256(proof.publicKeyHash);
-        pubSignals[DOMAIN_FIELDS + 1] = uint256(proof.eoaNullifier);
-        pubSignals[DOMAIN_FIELDS + 2] = uint256(proof.timestamp);
+        // pubSignals[DOMAIN_FIELDS] = uint256(proof.publicKeyHash);
+        // pubSignals[DOMAIN_FIELDS + 1] = uint256(proof.eoaNullifier);
+        // pubSignals[DOMAIN_FIELDS + 2] = uint256(proof.timestamp);
     
         // stringFields = _packBytes2Fields(
         //     bytes(proof.maskedCommand),
@@ -74,7 +75,7 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @dev -
         //     ? 1
         //     : 0;
 
-        pubSignals[DOMAIN_FIELDS + 25]; /// @dev - [NOTE]: This is added in order to meet uint256[34] memory
+        // pubSignals[DOMAIN_FIELDS + uint256(25)]; /// @dev - [NOTE]: This is added in order to meet uint256[34] memory
 
         return groth16Verifier.verifyProof(pA, pB, pC, pubSignals); /// @dev - Groth16Verifier# verifyProof()
     }

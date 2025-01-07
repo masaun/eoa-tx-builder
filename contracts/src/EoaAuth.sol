@@ -108,7 +108,7 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
     /// @notice Authenticate the EOA sender and authorize the message in the email command based on the provided email auth message.
     /// @dev This function can only be called by the controller contract.
     /// @param eoaAuthMsg The EOA auth message containing all necessary information for authentication and authorization.
-    function authEoa(EoaAuthMsg memory eoaAuthMsg) public onlyController { /// @dev - The "EoaAuthMsg" struct would include the "EoaProof proof" property, meaning that the proof (EmailProof) will be registered via this authEmail() function.
+    function authEoa(EoaAuthMsg memory eoaAuthMsg, uint256[] memory pubSignals) public onlyController { /// @dev - The "EoaAuthMsg" struct would include the "EoaProof proof" property, meaning that the proof (EmailProof) will be registered via this authEmail() function.
         // require(
         //     dkim.isDKIMPublicKeyHashValid(
         //         eoaAuthMsg.proof.domainName,
@@ -123,7 +123,7 @@ contract EoaAuth is OwnableUpgradeable, UUPSUpgradeable {
         );
 
         require(
-            verifier.verifyEoaProof(eoaAuthMsg.proof) == true, /// @audit info - Verifier# verifyEoaProof()
+            verifier.verifyEoaProof(eoaAuthMsg.proof, pubSignals) == true, /// @audit info - Verifier# verifyEoaProof()
             "invalid EOA proof"
         );
         
