@@ -7,19 +7,23 @@ import "forge-std/console.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {EoaAuth, EoaAuthMsg} from "../../src/EoaAuth.sol";
 import {Verifier, EoaProof} from "../../src/utils/Verifier.sol";
-import {Groth16Verifier} from "../../src/utils/Groth16Verifier.sol";
+import {Groth16Verifier} from "../../src/circuits/Groth16Verifier.sol";
 import {ECDSAOwnedDKIMRegistry} from "../../src/utils/ECDSAOwnedDKIMRegistry.sol";
 import {UserOverrideableDKIMRegistry} from "@zk-email/contracts/UserOverrideableDKIMRegistry.sol";
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 contract DeploymentHelper is Test {
+    
     using ECDSA for *;
 
     EoaAuth eoaAuth;
     Verifier verifier;
     ECDSAOwnedDKIMRegistry dkim;
     UserOverrideableDKIMRegistry overrideableDkimImpl;
+
+    /// @dev - Stored-value below (139..734) would be coming from the public.json, which was generated via the ZK circuit.
+    uint256[34] public pubSignals = [uint256(1390849295786071768276380950238675083608645509734)];
 
     address deployer = vm.addr(1);
     address receiver = vm.addr(2);

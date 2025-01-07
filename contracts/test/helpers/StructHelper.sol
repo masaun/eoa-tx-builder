@@ -4,6 +4,9 @@ pragma solidity ^0.8.12;
 import "./DeploymentHelper.sol";
 
 contract StructHelper is DeploymentHelper {
+
+    //uint256[34] public pubSignals; <-- Defined in the DeploymentHelper.sol
+
     function buildEoaAuthMsg()
         public
         returns (EoaAuthMsg memory eoaAuthMsg)
@@ -15,26 +18,19 @@ contract StructHelper is DeploymentHelper {
         );
 
         EoaProof memory eoaProof = EoaProof({
-            domainName: "gmail.com",
             publicKeyHash: publicKeyHash,
             timestamp: 1694989812,
-            maskedCommand: "Send 1 ETH to 0x0000000000000000000000000000000000000020",
             eoaNullifier: eoaNullifier,
-            accountSalt: accountSalt,
-            isCodeExist: true,
             proof: mockProof
         });
 
         eoaAuthMsg = EoaAuthMsg({
-            templateId: templateId,
-            commandParams: commandParams,
-            skippedCommandPrefix: 0,
             proof: eoaProof
         });
 
         vm.mockCall(
             address(verifier),
-            abi.encodeCall(Verifier.verifyEoaProof, (eoaProof)),
+            abi.encodeCall(Verifier.verifyEoaProof, (eoaProof, pubSignals)),
             abi.encode(true)
         );
     }
