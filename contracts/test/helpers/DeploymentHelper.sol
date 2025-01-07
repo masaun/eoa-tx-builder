@@ -22,7 +22,8 @@ contract DeploymentHelper is Test {
     ECDSAOwnedDKIMRegistry dkim;
     UserOverrideableDKIMRegistry overrideableDkimImpl;
 
-    uint256[34] public pubSignals;
+    /// @dev - Stored-value below (139..734) would be coming from the public.json, which was generated via the ZK circuit.
+    uint256[34] public pubSignals = [uint256(1390849295786071768276380950238675083608645509734)];
 
     address deployer = vm.addr(1);
     address receiver = vm.addr(2);

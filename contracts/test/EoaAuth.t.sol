@@ -29,7 +29,7 @@ contract EoaAuthTest is StructHelper {
         emit EoaAuth.DKIMRegistryUpdated(address(dkim));
         eoaAuth.updateDKIMRegistry(address(dkim));
 
-        pubSignals.push(uint256(1390849295786071768276380950238675083608645509734)); /// @dev - output signal -> public.json
+        //pubSignals.push(uint256(1390849295786071768276380950238675083608645509734)); /// @dev - output signal -> public.json (NOTE: This value would be stored in the DeploymentHelper.sol)
         vm.stopPrank();
     }
 
