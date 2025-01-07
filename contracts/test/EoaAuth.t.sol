@@ -29,7 +29,7 @@ contract EoaAuthTest is StructHelper {
         emit EoaAuth.DKIMRegistryUpdated(address(dkim));
         eoaAuth.updateDKIMRegistry(address(dkim));
 
-        pubSignals.push("1390849295786071768276380950238675083608645509734"); /// @dev - output signal -> public.json
+        pubSignals.push(uint256(1390849295786071768276380950238675083608645509734)); /// @dev - output signal -> public.json
         vm.stopPrank();
     }
 
@@ -134,7 +134,7 @@ contract EoaAuthTest is StructHelper {
         assertEq(eoaAuth.lastTimestamp(), 0);
 
         vm.expectRevert("only controller");
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
     }
 
     function testExpectRevertAuthEoaInvalidDkimPublicKeyHash() public {
@@ -151,7 +151,7 @@ contract EoaAuthTest is StructHelper {
         vm.startPrank(deployer);
         //eoaAuthMsg.proof.domainName = "invalid.com";
         vm.expectRevert(bytes("invalid dkim public key hash"));
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
         vm.stopPrank();
     }
 
@@ -167,9 +167,9 @@ contract EoaAuthTest is StructHelper {
         assertEq(eoaAuth.lastTimestamp(), 0);
 
         vm.startPrank(deployer);
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
         vm.expectRevert(bytes("eoa nullifier already used"));
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
         vm.stopPrank();
     }
 
@@ -185,7 +185,7 @@ contract EoaAuthTest is StructHelper {
         assertEq(eoaAuth.lastTimestamp(), 0);
 
         vm.startPrank(deployer);
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
         vm.stopPrank();
     }
 
@@ -193,7 +193,7 @@ contract EoaAuthTest is StructHelper {
         vm.startPrank(deployer);
         // _testInsertCommandTemplate();
         EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
         vm.stopPrank();
 
         assertEq(
@@ -206,7 +206,7 @@ contract EoaAuthTest is StructHelper {
         eoaAuthMsg.proof.eoaNullifier = 0x0;
         eoaAuthMsg.proof.timestamp = 1694989812;
         vm.expectRevert(bytes("invalid timestamp"));
-        eoaAuth.authEoa(eoaAuthMsg);
+        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
 
         vm.stopPrank();
     }

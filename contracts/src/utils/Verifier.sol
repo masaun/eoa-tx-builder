@@ -32,7 +32,7 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @dev -
 
     function verifyEoaProof(  /// @dev - This function is called in the EoaAuth# verifyEoaProof() to validate ~.
         EoaProof memory proof,
-        uint256[] memory pubSignals
+        uint256[] calldata pubSignals
     ) public view returns (bool) {
         (
             uint256[2] memory pA,
@@ -46,7 +46,7 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @dev -
         );
         require(pC[0] < q && pC[1] < q, "invalid format of pC");
 
-        uint256[DOMAIN_FIELDS] memory pubSignals;
+        //uint256[DOMAIN_FIELDS] memory pubSignals;
         //uint256[DOMAIN_FIELDS + COMMAND_FIELDS + 5] memory pubSignals;
 
         // uint256[] memory stringFields;
