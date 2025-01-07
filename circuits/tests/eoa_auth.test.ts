@@ -13,6 +13,9 @@ const option = {
 };
 
 jest.setTimeout(1440000);
+
+
+/// @notice - Using "yarn test" to run this test.
 describe("Eoa Auth", () => {
     let circuit;
     beforeAll(async () => {
