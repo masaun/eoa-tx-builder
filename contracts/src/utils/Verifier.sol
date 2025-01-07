@@ -32,7 +32,7 @@ contract Verifier is OwnableUpgradeable, UUPSUpgradeable, IVerifier { /// @dev -
 
     function verifyEoaProof(  /// @dev - This function is called in the EoaAuth# verifyEoaProof() to validate ~.
         EoaProof memory proof,
-        uint256[] calldata pubSignals
+        uint256[34] calldata pubSignals
     ) public view returns (bool) {
         (
             uint256[2] memory pA,
