@@ -12,6 +12,7 @@ interface IVerifier {
     // function commandBytes() external view returns (uint256);
 
     function verifyEoaProof(
-        EoaProof memory proof
+        EoaProof memory proof,
+        uint256[34] calldata pubSignals
     ) external view returns (bool);
 }
