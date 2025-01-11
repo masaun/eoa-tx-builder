@@ -21,7 +21,7 @@ contract StructHelper is DeploymentHelper {
             publicKeyHash: publicKeyHash,
             timestamp: 1694989812,
             eoaNullifier: eoaNullifier,
-            proof: mockProof
+            proof: mockProof /// @dev - [NOTE]: bytes mockProof = abi.encodePacked(bytes1(0x01));
         });
 
         eoaAuthMsg = EoaAuthMsg({
