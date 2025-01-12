@@ -28,7 +28,7 @@ describe("Eoa Auth", () => {
         );
     });
 
-    it("Verify a sent EOA whose body has an EOA address", async () => {
+    it("Verify a sent EOA whose Guardian has an EOA address", async () => {
         const circuitInputs = { account: "0x76DdBa536e5d53B18C9d416c493A424Bcf634c5B", guardian: "0x3bDdb015C941fD83D586D122d1b6a6fB020C5e96" }
         const witness = await circuit.calculateWitness(circuitInputs);
         await circuit.checkConstraints(witness);
