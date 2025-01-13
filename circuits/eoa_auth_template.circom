@@ -8,8 +8,9 @@ template EoaAuth() {
     signal input account;     /// @dev - Privately stored via the input.json (to may be generated on FE)
     signal input guardian;    /// @dev - Privately stored via the input.json (to may be generated on FE)
 
-    signal output accountPublicKey;    /// @dev - a "Public" signal
+    signal output accountPublicKey;  /// @dev - a "Public" signal
 
-    accountPublicKey <== account;     /// @dev - Constraint
-                                      /// @notice - In this case, the prameters in the SC to be generated will be a "proof" + "accountPublicKey" (= public signal)
+    accountPublicKey <== account;    /// @notice - In this case, the prameters in the SC to be generated will be a "proof" + "accountPublicKey" (= public signal)
+
+    accountPublicKey === account;    /// @dev - Constraint
 }
