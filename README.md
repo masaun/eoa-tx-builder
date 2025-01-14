@@ -13,7 +13,7 @@
 
 - The **EOA TX Builder** would be the module:
   - which can generate a proof to prove that a given `account` address is associated with a `guardian` address. (NOTE：This proof is called a `EOA proof` in this repo)
-  - which can generate the Verifier contract that can verify the proof.
+  - which can generate the Verifier contract that can verify the `EOA proof`.
 
 <br>
 
