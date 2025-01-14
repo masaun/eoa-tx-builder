@@ -1,5 +1,5 @@
 {
-  "name": "@zk-email/email-tx-builder-contracts",
+  "name": "eoa-tx-builder-contracts",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
