@@ -9,11 +9,16 @@
 
 ## Overview
 
+## Overview
+
 - The **Ether EOA-auth SDK (EOA TX Buider)** would be used for **account recovery** as a secondary account recovery module in the [**ZK Email Recovery**](https://github.com/zkemail/email-recovery). (NOTE：At the moment, the [**Ether Email-auth SDK (Email TX Builder)**](https://github.com/zkemail/email-tx-builder) has been used as a primary account recovery module for the [**ZK Email Recovery**](https://github.com/zkemail/email-recovery). Basically, the **Ether EOA-auth SDK (EOA TX Buider)** would be assumed that it work with the [**Ether Email-auth SDK (Email TX Builder)**](https://github.com/zkemail/email-tx-builder) in the [**ZK Email Recovery**](https://github.com/zkemail/email-recovery))
 
 - The **EOA TX Builder** would be the module:
   - which can generate a proof to prove that a given `account` address is associated with a `guardian` address. (NOTE：This proof is called a `EOA proof` in this repo)
   - which can generate the Verifier contract that can verify the `EOA proof`.
+
+- The advantage of using an `EOA proof` is that a given `guardian` address, which is associated with an `account` owner, can be verified **without** revealing the `guardian` address. 
+
 
 <br>
 
