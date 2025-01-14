@@ -17,11 +17,17 @@
 
 <br>
 
-## Integration with the `email-recovery` module
+## Integration with the [`Email-Recovery`](https://github.com/zkemail/email-recovery) module
 
 - The **Ether EOA-auth SDK (EOA TX Buider)** would be assumed that it work with the [**Ether Email-auth SDK (Email TX Builder)**](https://github.com/zkemail/email-tx-builder) in the [**ZK Email Recovery**](https://github.com/zkemail/email-recovery)
    - Integration summary and approach:
       https://github.com/masaun/email-recovery/blob/masaun_%2366_prototype-new-ERC7579-recovery-module/doc/summary-and-approach.md
+
+   - The architecture of the proof generation with the **Email-auth** (which generate and verify a `Email proof`)and **EOA-auth** (which generate and verify a `EOA proof`)
+      ![architecture_proof-generation_with_Email-Auth_and_EOA-auth](https://github.com/user-attachments/assets/ce1f6ec1-3f7f-41e0-a275-8e6668caf3e0)
+
+   - The architecture of the account recovery flow including both the **Email-auth** (which generate and verify a `Email proof`)and **EOA-auth** (which generate and verify a `EOA proof`)  
+     https://github.com/masaun/eoa-tx-builder/blob/develop/doc/diagrams/architecture_of_account-recovery-flow_including_EOA-auth.png
 
 
 <br>
@@ -106,6 +112,7 @@ snarkjs zkey export solidityverifier eoa_auth_0001.zkey verifier.sol
 - Run test (using `circom_tester`)
 ```shell
 /// NOTE: The directory is ./circuits
+cd circuits
 
 yarn test
 ```
@@ -116,7 +123,12 @@ yarn test
 
 ### Smart contract (written in Solidity)
 
-- Compile SC (Main file: `EoaAuth.sol`)
+- 1/ Move to the `./contracts` directory
+```shell
+cd contracts
+```
+
+- 2/ Compile SC (Main file: `EoaAuth.sol`)
 ```shell
 forge build
 ```
@@ -124,8 +136,11 @@ forge build
 <br>
 
 ### Run the test of Smart contract
-- 2/ Run Test (File: `EoaAuth.t.sol`)
+- 3/ Run Test (File: `EoaAuth.t.sol`)
 ```shell
+/// [NOTE]：Make sure the directory is ./contracts
+cd contracts
+
 forge test -vvv
 ```
 
