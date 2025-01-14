@@ -25,9 +25,11 @@
 
    - The architecture of the proof generation with the **Email-auth** (which generate and verify a `Email proof`)and **EOA-auth** (which generate and verify a `EOA proof`)
       ![architecture_proof-generation_with_Email-Auth_and_EOA-auth](https://github.com/user-attachments/assets/ce1f6ec1-3f7f-41e0-a275-8e6668caf3e0)
+      (Source: https://github.com/masaun/eoa-tx-builder/blob/develop/doc/diagrams/architecture_proof-generation_with_Email-Auth_and_EOA-auth.png ) 
 
-   - The architecture of the account recovery flow including both the **Email-auth** (which generate and verify a `Email proof`)and **EOA-auth** (which generate and verify a `EOA proof`)  
-     https://github.com/masaun/eoa-tx-builder/blob/develop/doc/diagrams/architecture_of_account-recovery-flow_including_EOA-auth.png
+   - The architecture of the account recovery flow including both the **Email-auth** (which generate and verify a `Email proof`)and **EOA-auth** (which generate and verify a `EOA proof`)
+      ![architecture_of_account-recovery-flow_including_EOA-auth](https://github.com/user-attachments/assets/665ad240-0971-4db6-8c7c-4ca6325ef31f)
+      (Source: https://github.com/masaun/eoa-tx-builder/blob/develop/doc/diagrams/architecture_of_account-recovery-flow_including_EOA-auth.png )
 
 
 <br>
