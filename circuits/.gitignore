@@ -22,3 +22,6 @@ eoa_auth_js/
 
 eoa_auth.r1cs
 eoa_auth.sym
+
+# Others
+.DS_Store
