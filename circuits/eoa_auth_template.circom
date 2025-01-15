@@ -1,6 +1,6 @@
 pragma circom 2.1.6;
 
-include "./eoa-verifier.circom"; /// @dev - The "EoaVerifier" template is implemented here.
+//include "./eoa-verifier.circom"; /// @dev - The "EoaVerifier" template is implemented here.
 
 
 // Verify an EOA from user (sender)

@@ -41,11 +41,18 @@
 
 ## Installation
 
+## Installation
+
 ### ZK circuit (written in `Circom` and `Snarkjs`)
 
-- 1/ Move to the `./circuits` directory
+- 0/ Install node modules in the root directory
 ```shell
-cd circuits
+yarn install
+```
+
+- 1/ Move to the `./circuits` directory and install node modules
+```shell
+cd circuits && yarn install
 ```
 
 - 2/ Compiling ZK circuit
@@ -123,7 +130,6 @@ cd circuits
 
 yarn test
 ```
-
 
 <br>
 
