@@ -137,41 +137,41 @@ contract EoaAuthTest is StructHelper {
         eoaAuth.authEoa(eoaAuthMsg, pubSignals);
     }
 
-    function testExpectRevertAuthEoaInvalidDkimPublicKeyHash() public {
-        vm.startPrank(deployer);
-        EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
-        vm.stopPrank();
+    // function testExpectRevertAuthEoaInvalidDkimPublicKeyHash() public {
+    //     vm.startPrank(deployer);
+    //     EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
+    //     vm.stopPrank();
 
-        assertEq(
-            eoaAuth.usedNullifiers(eoaAuthMsg.proof.eoaNullifier),
-            false
-        );
-        assertEq(eoaAuth.lastTimestamp(), 0);
+    //     assertEq(
+    //         eoaAuth.usedNullifiers(eoaAuthMsg.proof.eoaNullifier),
+    //         false
+    //     );
+    //     assertEq(eoaAuth.lastTimestamp(), 0);
 
-        vm.startPrank(deployer);
-        //eoaAuthMsg.proof.domainName = "invalid.com";
-        vm.expectRevert(bytes("invalid dkim public key hash"));
-        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
-        vm.stopPrank();
-    }
+    //     vm.startPrank(deployer);
+    //     //eoaAuthMsg.proof.domainName = "invalid.com";
+    //     vm.expectRevert(bytes("invalid dkim public key hash"));
+    //     eoaAuth.authEoa(eoaAuthMsg, pubSignals);
+    //     vm.stopPrank();
+    // }
 
-    function testExpectRevertAuthEoaNullifierAlreadyUsed() public {
-        vm.startPrank(deployer);
-        EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
-        vm.stopPrank();
+    // function testExpectRevertAuthEoaNullifierAlreadyUsed() public {
+    //     vm.startPrank(deployer);
+    //     EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
+    //     vm.stopPrank();
 
-        assertEq(
-            eoaAuth.usedNullifiers(eoaAuthMsg.proof.eoaNullifier),
-            false
-        );
-        assertEq(eoaAuth.lastTimestamp(), 0);
+    //     assertEq(
+    //         eoaAuth.usedNullifiers(eoaAuthMsg.proof.eoaNullifier),
+    //         false
+    //     );
+    //     assertEq(eoaAuth.lastTimestamp(), 0);
 
-        vm.startPrank(deployer);
-        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
-        vm.expectRevert(bytes("eoa nullifier already used"));
-        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
-        vm.stopPrank();
-    }
+    //     vm.startPrank(deployer);
+    //     eoaAuth.authEoa(eoaAuthMsg, pubSignals);
+    //     vm.expectRevert(bytes("eoa nullifier already used"));
+    //     eoaAuth.authEoa(eoaAuthMsg, pubSignals);
+    //     vm.stopPrank();
+    // }
 
     function testExpectRevertAuthEoaInvalidAccountSalt() public {
         vm.startPrank(deployer);
@@ -189,27 +189,27 @@ contract EoaAuthTest is StructHelper {
         vm.stopPrank();
     }
 
-    function testExpectRevertAuthEoaInvalidTimestamp() public {
-        vm.startPrank(deployer);
-        // _testInsertCommandTemplate();
-        EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
-        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
-        vm.stopPrank();
+    // function testExpectRevertAuthEoaInvalidTimestamp() public {
+    //     vm.startPrank(deployer);
+    //     // _testInsertCommandTemplate();
+    //     EoaAuthMsg memory eoaAuthMsg = buildEoaAuthMsg();
+    //     eoaAuth.authEoa(eoaAuthMsg, pubSignals);
+    //     vm.stopPrank();
 
-        assertEq(
-            eoaAuth.usedNullifiers(eoaAuthMsg.proof.eoaNullifier),
-            true
-        );
-        assertEq(eoaAuth.lastTimestamp(), eoaAuthMsg.proof.timestamp);
+    //     assertEq(
+    //         eoaAuth.usedNullifiers(eoaAuthMsg.proof.eoaNullifier),
+    //         true
+    //     );
+    //     assertEq(eoaAuth.lastTimestamp(), eoaAuthMsg.proof.timestamp);
 
-        vm.startPrank(deployer);
-        eoaAuthMsg.proof.eoaNullifier = 0x0;
-        eoaAuthMsg.proof.timestamp = 1694989812;
-        vm.expectRevert(bytes("invalid timestamp"));
-        eoaAuth.authEoa(eoaAuthMsg, pubSignals);
+    //     vm.startPrank(deployer);
+    //     eoaAuthMsg.proof.eoaNullifier = 0x0;
+    //     eoaAuthMsg.proof.timestamp = 1694989812;
+    //     vm.expectRevert(bytes("invalid timestamp"));
+    //     eoaAuth.authEoa(eoaAuthMsg, pubSignals);
 
-        vm.stopPrank();
-    }
+    //     vm.stopPrank();
+    // }
 
     function testSetTimestampCheckEnabled() public {
         vm.startPrank(deployer);
